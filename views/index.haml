@@ -1,0 +1,20 @@
+#content
+  #header
+    %h1 Mans blogs
+  #content
+    - @articles.each do |article|
+      %h3= h article.title
+      %p= article.body
+    %hr
+    %form(action="/save" method="post")
+      %p
+        %label Virsraksts:
+        %br 
+        %input(type="text" name="title")
+      %p
+        %label Teksts
+        %br
+        %textarea(name="body")              
+      %p
+        %input(type="submit" value="Saglabāt")
+    
