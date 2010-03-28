@@ -19,6 +19,6 @@ class Article
   private
 
   def slugify
-    self.slug = self.title.to_s.gsub(/\s/,'-').gsub(/^[a-ž_-0-9]/i,'')
+    self.slug = self.title.to_s.gsub(/\s/,'-').gsub(/^[a-ž_\-0-9]/i,'') unless self.slug
   end
 end
