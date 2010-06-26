@@ -1,9 +1,15 @@
 require 'sinatra'
 require 'dm-core'
+require 'dm-validations'
 require 'appengine-apis/users'
 DataMapper.setup(:default, "appengine://auto")
 require 'models/article.rb'
-set :haml, {:format => :html5, :layout => :default }
+require 'controllers/blog.rb'
+require 'erubis'
+set :erubis, {:layout => :default}
+
+# controllers
+include Blog
 
 helpers do
   include Rack::Utils
@@ -11,14 +17,5 @@ helpers do
 end
 
 get '/' do
-  @articles = Article.all
-  haml :index
-end
-
-post '/save' do
-  if params && params[:content]
-    a = Article.new(:content => params[:content])
-    a.save
-    redirect '/'
-  end
+  erubis :index
 end

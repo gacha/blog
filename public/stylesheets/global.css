@@ -1,0 +1,129 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	background-color: #f3efe5;
+}
+
+/* Fonts */
+
+h1,h2,h3 { margin-top:.8em; font-family: "Trebuchet MS","Times New Roman",serif; font-weight:normal; color: #450D0D;}
+h1 { font-size:218%; margin-top:.2em; margin-bottom:.3em; line-height:1.1em; color: #BF3616; font-weight: bold;}
+h2 { font-size:150%; margin-top:1em; margin-bottom:.2em; line-height:1.2em; }
+h3 { font-size:125%; font-weight:bold; margin-bottom:.2em; }
+h4 { font-size:100%; font-weight:bold; margin-bottom:-3px; margin-top:1.2em; text-transform:uppercase; letter-spacing:1px; }
+h4 pre, h4 tt, h4 .literal { text-transform:none; }
+h5 { font-size:1em; font-weight:bold; margin-top:1.5em; margin-bottom:3px; color: #450D0D; }
+
+
+a:link, a:visited, a:active {
+	color: #A81616;
+	text-decoration : none;
+	}
+a:hover {
+	background-color: #FFFCC0;
+	color: #F1542F;
+}
+p {
+	font-size: 1.1em;
+	line-height: 1.4em;
+	margin: 0.5em 0 0.5em 0;
+	padding: 0px;
+}
+
+code {
+	color: #670101;
+	background-color: #efefcf;
+}
+
+blockquote {
+	background: #F3F0A0;
+	border-left: 2px solid #620C0C;
+	padding: 1em;
+}
+
+/* Layout */
+
+body > header {
+	height: 135px;
+	width: 100%;
+	background: url(/images/menu.png) left bottom repeat-x;
+	background-color: #620C0C;
+}
+
+body > header > a:hover {
+	background-color: transparent;
+}
+
+#content {
+  padding: 1em 1em 0 5em;
+}
+
+body > footer {
+	font-size: 0.8em;
+	border-top: 2px solid #E7E3D4;
+	line-height: 20px;
+	padding: 5px;
+	text-align: center;
+	color: #D2D3D2;
+  clear: both;
+}
+
+nav {
+  position: relative;
+  top: -65px;
+  right: 50px;
+}
+nav ul {
+	text-align: left;
+	font: bold 11px verdana, arial, sans-serif;
+	list-style-type: none;
+	padding: 3px 10px 3px 10px;
+	float: right;
+  height: 30px;
+}
+nav ul li {
+  display: inline;
+}
+nav ul li a {
+  padding: 3px 4px;
+  border: 1px solid #CEC1A3;
+  background-color: #F3EFE5;
+  color: #620C0C !important;
+  margin-right: 0px;
+  text-decoration: none;
+  border-bottom: none;
+}
+nav ul li a:hover,nav ul li.active a:hover {
+  background: #CFC3A7;
+  color: #A81616 !important;
+}
+nav ul li.active a {
+  color: #A81616 !important;
+}
+/* Other */
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+img.inline {
+	vertical-align: middle;
+}
+
+br.clear {
+	clear: both;
+	height:0;
+	line-height: 0;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+ul.errors {
+  color: red;
+  list-style-type: decimal;
+  padding-left: 25px;
+  padding-bottom: 10px;
+}

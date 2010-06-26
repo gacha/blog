@@ -6,5 +6,6 @@ bundle_path '.gems/bundler_gems'
 # List gems to bundle here:
 gem 'appengine-rack'
 gem 'dm-appengine'
+gem 'dm-validations'
 gem 'sinatra'
-gem 'haml'
+gem 'erubis'

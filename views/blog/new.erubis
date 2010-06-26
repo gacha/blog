@@ -1,0 +1,26 @@
+<section>
+  <form action="/blog/save" method="post">
+    <% if @article.errors %>
+      <ul class="errors">
+        <% @article.errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>
+      <label for="article_title">Virsraksts</label><br />
+      <input type="text" name="article[title]" id="article_title" value="<%= @article.title %>" />
+    </p>
+    <p>
+      <label for="article_body">Saturs:</label><br />
+      <textarea name="article[body]" id="article_body" cols="60" rows="15"><%= @article.body %></textarea>
+    </p>
+    <p>
+      <label>Ir publisks <input type="checkbox" name="article[is_public]"/></label>
+      <label>Komentējams <input type="checkbox" name="article[enable_comments]"/></label>
+    </p>
+    <p>
+      <input type="submit" name="save" value="Saglabāt" />
+    </p>
+  </form>
+</section>
