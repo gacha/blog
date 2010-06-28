@@ -1,0 +1,7 @@
+<form method="post" action="/blog/<%= @article.id %>/destroy">
+  <p>Vai tiešām dzēst šo rakstu?</p>
+  <p>
+    <input type="button" name="back" value="Atpakaļ" onclick="window.history.back(1)"/>
+    <input type="submit" name="destroy" value="Jā dzēst" />
+  </p>
+</form>

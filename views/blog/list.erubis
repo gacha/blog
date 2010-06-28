@@ -1,0 +1,14 @@
+<h1>Visi bloga raksti</h1>
+<p><a href="/blog/new">Pievienot jaunu</a></p>
+<table>
+  <% @articles.each do |article| %>
+  <tr>
+    <td><a href="<%= article.url %>"><%= article.title %></a></td>
+    <td><%= article.create_date.strftime('%d.%m.%Y') %></td>
+    <td><%= article.is_public? ? 'Jā' : 'Nē' %></td>
+    <td>
+      <a href="/blog/<%= article.id %>/edit">Labot</a> | <a href="/blog/<%= article.id %>/destroy">Dzēst</a>
+    </td>
+  </tr>
+  <% end %>
+</table>

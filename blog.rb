@@ -5,6 +5,7 @@ require 'appengine-apis/users'
 DataMapper.setup(:default, "appengine://auto")
 require 'models/article.rb'
 require 'controllers/blog.rb'
+require 'helpers/article_helper.rb'
 require 'erubis'
 set :erubis, {:layout => :default}
 
@@ -12,10 +13,15 @@ set :erubis, {:layout => :default}
 include Blog
 
 helpers do
+  include ArticleHelper
   include Rack::Utils
   alias_method :h, :escape_html
 end
 
 get '/' do
   erubis :index
+end
+
+not_found do
+  'Nevar atrast!'
 end

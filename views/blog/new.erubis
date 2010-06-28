@@ -1,6 +1,7 @@
 <section>
-  <form action="/blog/save" method="post">
-    <% if @article.errors %>
+  <form action="<%= update_url(@article) %>" method="post">
+    <% unless @article.errors.empty? %>
+    <h3>Kļūdas</h3>
       <ul class="errors">
         <% @article.errors.each do |error| %>
           <li><%= error %></li>
@@ -9,18 +10,28 @@
     <% end %>
     <p>
       <label for="article_title">Virsraksts</label><br />
-      <input type="text" name="article[title]" id="article_title" value="<%= @article.title %>" />
+      <input type="text" name="article[title]" id="article_title" value="<%= @article.title %>" size="50" />
+    </p>
+    <% if @article.saved? %>
+    <p>
+      <label for="article_slug">Slug</label><br />
+      <input type="text" name="article[slug]" id="article_slug" value="<%= @article.slug %>" size="50" />
+    </p>
+    <% end %>
+    <p>
+      <label for="article_body">Saturs</label><br />
+      <textarea name="article[body]" id="article_body" cols="80" rows="15"><%= @article.body %></textarea>
     </p>
     <p>
-      <label for="article_body">Saturs:</label><br />
-      <textarea name="article[body]" id="article_body" cols="60" rows="15"><%= @article.body %></textarea>
-    </p>
-    <p>
-      <label>Ir publisks <input type="checkbox" name="article[is_public]"/></label>
-      <label>Komentējams <input type="checkbox" name="article[enable_comments]"/></label>
+      <label>Ir publisks <input type="checkbox" name="article[is_public]" value="1" <%= @article.is_public? ? 'checked="checked"' : '' %> /></label>
+      <label>Komentējams <input type="checkbox" name="article[enable_comments]" value="1" <%= @article.enable_comments? ? 'checked="checked"' : '' %> /></label>
     </p>
     <p>
       <input type="submit" name="save" value="Saglabāt" />
+      <input type="button" name="save" value="Pirmsapskate" />
+      <% if @article.saved? %>
+      <input type="button" name="destroy" value="Dzēst rakstu" onclick="window.location.href='/blog/<%= @article.id %>/destroy'"/>
+      <% end %>
     </p>
   </form>
 </section>

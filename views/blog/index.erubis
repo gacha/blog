@@ -1,4 +1,4 @@
 <% @articles.each do |article| %>
   <h2><%= h article.title %></h2>
-  <article><%= article.body %></article>
+  <article><%= article.body_as_html %></article>
 <% end %>
