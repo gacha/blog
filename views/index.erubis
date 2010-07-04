@@ -1,1 +1,39 @@
-<p>Sākumlapa</p>
+<div id="about">
+  <p>
+    <img src="/images/me_small.png" alt="Es Cēsu maratonā" id="me" />
+    Šī ir Gata Tomsona personīgā tīmekļa vietne, kur ir atrodams šis/tas saistībā ar viņa darbu un atpūtu. Gatis ir 24 gadus jauns,
+    strādā par tīmekļa aplikāciju izstrādātāju un brīvajā laikā aizraujas ar <acronym title="Kalnu velosipēds">MTB</acronym> un labprāt piedalās
+    arī citās sporta aktivitātēs.<br />
+    <a href="/about/">Te, mazliet vairāk pats par sevi...</a>
+  </p>
+</div>
+<br class="clear" />
+<section class="column">
+  <h2>Daži attēli no flicker</h2>
+  <div id="flicker-photos">
+    <% @flickr.each do |item| %>
+      <figure>
+        <%= %^<a href="#{item[:big]}" class="highslide" onclick="return hs.expand(this)"><img src="#{item[:thumb]}" alt=""></a>^ %>
+        <figcaption><div class="highslide-caption"><a href="<%= item[:link] %>"><%= h item[:title] %></a></div></figcaption>
+      </figure>
+    <% end %>
+  </div>
+</section>
+<section class="column">
+  <h2>Mikrobloga ieraksti no <a href="http://twitter.com/gacha">twitter</a></h2>
+  <% @tweets.each do |tweet| %>
+    <p>
+      <span class="date"><%= tweet[:time].strftime("%d.%m.%Y@%H:%I") %></span><br>
+      <%= linkify(tweet[:body]) %>
+    </p>
+  <% end %>
+</section>
+<section class="column">
+  <h2>Grāmatzīmes no <a href="http://delicious.com/gacha_lv">del.icio.us</a></h2>
+  <div id="del-icio-us">
+    <% @delicious.each do |item| %>
+      <p><a href="<%= item[:link] %>"><%= item[:title] %></a></p>
+    <% end %>
+  </div>
+</section>
+<br class="clear" />

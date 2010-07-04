@@ -13,6 +13,13 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainpage.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/pygments_pastie.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/highslide.css" />
+    <script type="text/javascript" src="/javascripts/highslide.js"></script>
+    <script type="text/javascript">
+      hs.graphicsDir = '/images/highslide/';
+      hs.wrapperClassName = 'wide-border';
+      hs.showCredits = false;
+    </script>
   </head>
   <body>
   <header>
@@ -27,8 +34,23 @@
       <li><a href="/programming/"><span>Programmēšana</span></a></li>
     </ul>
   </nav>
-  <section id="content">
+  <div id="content">
     <%= yield :content %>
-  </section>
+  </div>
+  <footer id="footer">
+    <p>© 2006-<%= Date.today.year %> Gatis Tomsons</p>
+    <p>
+      <a href="http://code.google.com/appengine/"><img src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" alt="Powered by Google App Engine" /></a>
+    </p>
+  </footer>
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-411122-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
 </body>
 </html>
