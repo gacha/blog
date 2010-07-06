@@ -1,0 +1,7 @@
+<form method="post" action="<%= @page.url %>destroy">
+  <p>Vai tiešām dzēst šo lapu?</p>
+  <p>
+    <input type="button" name="back" value="Atpakaļ" onclick="window.history.back(1)"/>
+    <input type="submit" name="destroy" value="Jā dzēst" />
+  </p>
+</form>

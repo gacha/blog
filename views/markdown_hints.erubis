@@ -1,0 +1,36 @@
+<aside>
+  <h3>Markdown lietošana</h3>
+  <h4>Virsraksti</h4>
+  <p>
+    # This is an H1 <br />
+    ## This is an H2 <br />
+    ###### This is an H6
+  </p>
+  <h4>Citāti</h4>
+  <p>
+    &gt; This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+    consectetuer adipiscing elit.
+  </p>
+  <h4>Saraksti</h4>
+  <p>
+    -   Red <br />
+    -   Green <br />
+    -   Blue <br />
+    <br />
+    1.  Bird <br />
+    2.  McHale <br />
+    3.  Parish
+  </p>
+  <h4>Saites</h4>
+  <p>
+    [an example](http://example.com/ "Title") ar title.<br />
+    [This link](http://example.net/) bez title<br />
+    <br />
+    &lt;http://example.com/&gt; - būs klikojama saite
+  </p>
+  <h4>Attēli</h4>
+  <p>
+    ![Alt text](/path/to/img.jpg)<br />
+    ![Alt text](/path/to/img.jpg "Optional title")
+  </p>
+</aside>

@@ -1,0 +1,40 @@
+<section>
+  <form action="<%= @page.url %>update" method="post">
+    <% unless @page.errors.empty? %>
+    <h3>Kļūdas</h3>
+      <ul class="errors">
+        <% @page.errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>
+      <label for="page_title">Lapas virsraksts</label><br />
+      <input type="text" name="page[title]" id="page_title" value="<%= @page.title %>" size="50" />
+    </p>
+    <% if @page.saved? %>
+    <p>
+      <label for="page_slug">Slug</label><br />
+      <input type="text" name="page[slug]" id="page_slug" value="<%= @page.slug %>" size="50" />
+    </p>
+    <% elsif @page.slug %>
+    <input type="hidden" name="page[slug]" id="page_slug" value="<%= @page.slug %>" />
+    <% end %>
+    <p>
+      <label for="page_body">Saturs</label><br />
+      <textarea name="page[body]" id="page_body" cols="80" rows="15"><%= @page.body %></textarea>
+    </p>
+    <p>
+      <label>Ir publisks <input type="checkbox" name="page[is_public]" value="1" <%= @page.is_public? ? 'checked="checked"' : '' %> /></label>
+      <label>Komentējams <input type="checkbox" name="page[enable_comments]" value="1" <%= @page.enable_comments? ? 'checked="checked"' : '' %> /></label>
+    </p>
+    <p>
+      <input type="submit" name="save" value="Saglabāt" />
+      <input type="button" name="save" value="Pirmsapskate" />
+      <% if @page.saved? %>
+      <input type="button" name="destroy" value="Dzēst lapu" onclick="window.location.href='<%= @page.url %>destroy'"/>
+      <% end %>
+    </p>
+  </form>
+  <%= erubis :"markdown_hints", :layout => false %>
+</section>

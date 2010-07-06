@@ -4,18 +4,26 @@ require 'dm-validations'
 require 'appengine-apis/users'
 require 'appengine-apis/memcache'
 DataMapper.setup(:default, "appengine://auto")
-require 'models/article.rb'
-require 'controllers/blog.rb'
-require 'helpers/article_helper.rb'
-require 'erubis'
 
-set :erubis, {:layout => :default}
+# load models
+Dir.glob("models/*.rb").each {|f| require(f) }
+
+# load controllers
+Dir.glob("controllers/*.rb").each {|f| require(f) }
+
+# load helpers
+Dir.glob("helpers/*.rb").each {|f| require(f) }
 
 # load libs
 Dir.glob("lib/*.rb").each {|f| require(f) }
 
+require 'erubis'
+
+set :erubis, {:layout => :default}
+
 # controllers
-include Blog
+include PageController
+include BlogController
 
 helpers do
   include ArticleHelper

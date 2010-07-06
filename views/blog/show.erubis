@@ -1,2 +1,2 @@
 <h1><%= @article.title %></h1>
-<%= @article.body_as_html %>
+<%= markdown_to_html @article.body %>

@@ -1,6 +1,6 @@
 require 'controllers/auth.rb'
 
-module Blog
+module BlogController
   include Auth
 
   get '/blog/' do
@@ -51,12 +51,15 @@ module Blog
     authorize
     @article = Article.get(params[:id])
     halt 404 unless @article
-    if @article && params[:article]
+    if params[:article]
       params[:article][:is_public] = false unless params[:article][:is_public]
       params[:article][:enable_comments] = false unless params[:article][:enable_comments]
-      @article.update(params[:article])
     end
-    redirect @article.url
+    if @article.update(params[:article])
+      redirect @article.url
+    else
+      erubis :'blog/new'
+    end
   end
 
   get '/blog/:id/destroy' do
@@ -70,7 +73,7 @@ module Blog
     authorize
     @article = Article.get(params[:id])
     halt 404 unless @article
-    @article.destroy! if @article
+    @article.destroy!
     redirect '/blog/list'
   end
 end

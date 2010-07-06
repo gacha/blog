@@ -9,7 +9,7 @@
       </ul>
     <% end %>
     <p>
-      <label for="article_title">Virsraksts</label><br />
+      <label for="article_title">Raksta virsraksts</label><br />
       <input type="text" name="article[title]" id="article_title" value="<%= @article.title %>" size="50" />
     </p>
     <% if @article.saved? %>
@@ -34,4 +34,5 @@
       <% end %>
     </p>
   </form>
+  <%= erubis :"markdown_hints", :layout => false %>
 </section>

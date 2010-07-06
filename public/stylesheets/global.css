@@ -118,6 +118,7 @@ textarea {
   padding: 5px;
   font-size: 15px;
   font-family: "Courier new", sans-serif;
+  width: 100%;
 }
 img {
   border: 0px;
@@ -149,4 +150,14 @@ table tr td {
   padding: 10px;
   line-height: 25px;
   border: 1px solid #ccc;
+}
+#content section > form {
+  float: left;
+  width: 65%;
+}
+#content section > aside {
+  float: right;
+  width: 30%;
+  position: relative;
+  top: -50px;
 }
