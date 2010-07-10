@@ -19,6 +19,10 @@
     </p>
     <% end %>
     <p>
+      <label for="article_tags">Tagi</label><br />
+      <input type="text" name="article[tags]" id="article_tags" value="<%= @article.tags %>" size="50" />
+    </p>
+    <p>
       <label for="article_body">Saturs</label><br />
       <textarea name="article[body]" id="article_body" cols="80" rows="15"><%= @article.body %></textarea>
     </p>

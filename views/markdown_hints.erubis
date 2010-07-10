@@ -2,9 +2,9 @@
   <h3>Markdown lietošana</h3>
   <h4>Virsraksti</h4>
   <p>
-    # This is an H1 <br />
-    ## This is an H2 <br />
-    ###### This is an H6
+    # Šis ir lielais virsraksts H1 <br />
+    ## Šis ir otrā izmēra virsraksts H2 <br />
+    ###### Šis ir sestā izmēra virsraksts H6
   </p>
   <h4>Citāti</h4>
   <p>
@@ -13,18 +13,17 @@
   </p>
   <h4>Saraksti</h4>
   <p>
-    -   Red <br />
-    -   Green <br />
-    -   Blue <br />
+    -   Viens <br />
+    -   Divi <br />
+    -   Trīs <br />
     <br />
-    1.  Bird <br />
-    2.  McHale <br />
-    3.  Parish
+    1.  Putns <br />
+    2.  Šalle <br />
+    3.  Rokturis
   </p>
   <h4>Saites</h4>
   <p>
-    [an example](http://example.com/ "Title") ar title.<br />
-    [This link](http://example.net/) bez title<br />
+    [piemērs](http://piemers.com/) bez virsraksta<br />
     <br />
     &lt;http://example.com/&gt; - būs klikojama saite
   </p>

@@ -1,2 +1,1 @@
-<h1><%= @article.title %></h1>
-<%= markdown_to_html @article.body %>
+<article>  <h1 class="article-title"><%= defined?(full)? article.title : %^<a href="#{article.url}">#{article.title}</a>^ %> </h1>	<span class="article-header"><%= article.create_date.strftime("%d.%m.%Y") %>  | <%= tags_as_html article.tags %></span>	<div class="article-body">    <%= markdown_to_html(article.body) %>	</div>	<br class="clear"/></article>

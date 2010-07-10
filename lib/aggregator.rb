@@ -13,6 +13,7 @@ class Aggregator
         images = doc.search("//item").collect{|item| {:title => item.search("media:description").inner_html.gsub(/&lt;\/[a-z]{1}&gt;/,'').gsub(/&lt;[a-z]{1}&gt;/,''),:thumb => item.search("media:thumbnail").attr("url"),:big=>item.search("media:thumbnail").attr("url").gsub(/_s\.jpg/,'_z.jpg'),:link=>item.search("title").inner_html}}
         @cache.set(:flickr,images)
       rescue
+        return []
       end
     end
     images
@@ -26,6 +27,7 @@ class Aggregator
         tweets = doc.search("//status").collect{|item| {:body => item.search("text").inner_html,:time => Time.parse(item.search("created_at").inner_html)}}
         @cache.set(:tweets,tweets)
       rescue
+       return []
       end
     end
     tweets
@@ -39,6 +41,7 @@ class Aggregator
         bookmarks = doc.search("//item").collect{|item| {:title => item.search("title").inner_html,:link => item.search("link").inner_html}}
         @cache.set(:bookmarks,bookmarks)
       rescue
+        return []
       end
     end
     bookmarks

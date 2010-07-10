@@ -102,6 +102,32 @@ nav ul li a:hover,nav ul li.active a:hover {
 nav ul li.active a {
   color: #A81616 !important;
 }
+/* article */
+.article-title a {
+    color: #BF3616;
+}
+
+.article-header {
+    font-weight: bold;
+    font-size: small;
+}
+
+.article-footer {
+    padding: 0 0.5em 0.5em 0;
+    margin: 0 0 2em 0;
+
+}
+
+.article-body img {
+    margin: 1em;
+    border: 1px solid black;
+}
+.article-footer a {
+    color: #000;
+    margin: 0;
+    font-weight: bold;
+}
+
 /* Other */
 label {
   font-weight: bold;

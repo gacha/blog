@@ -23,6 +23,7 @@ set :erubis, {:layout => :default}
 
 # controllers
 include PageController
+include TagController
 include BlogController
 
 helpers do

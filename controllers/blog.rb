@@ -15,9 +15,9 @@ module BlogController
   end
 
   get '/blog/:day/:month/:year/:slug/' do
-    @article = Article.first(:create_date => (Time.local(params[:year],params[:month],params[:day],0,0)..Time.local(params[:year],params[:month],params[:day],23,59)), :slug => params[:slug])
-    halt 404 unless @article
-    erubis :'blog/show'
+    article = Article.first(:create_date => (Time.local(params[:year],params[:month],params[:day],0,0)..Time.local(params[:year],params[:month],params[:day],23,59)), :slug => params[:slug])
+    halt 404 unless article
+    erubis :'blog/show', :locals => {:article => article}
   end
 
   get '/blog/new' do
@@ -29,6 +29,7 @@ module BlogController
   post '/blog/create' do
     authorize
     if params[:article]
+      params[:article][:tags] = params[:article][:tags].split(",").map(&:strip) if params[:article][:tags]
       @article = Article.new(params[:article])
       @article.author = user
       if @article.valid?
@@ -54,6 +55,7 @@ module BlogController
     if params[:article]
       params[:article][:is_public] = false unless params[:article][:is_public]
       params[:article][:enable_comments] = false unless params[:article][:enable_comments]
+      params[:article][:tags] = params[:article][:tags].split(",").map(&:strip) if params[:article][:tags]
     end
     if @article.update(params[:article])
       redirect @article.url
