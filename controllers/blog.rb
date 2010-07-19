@@ -1,11 +1,13 @@
-require 'controllers/auth.rb'
-
-module BlogController
-  include Auth
-
-  get '/blog/' do
-    @articles = Article.all(:is_public => true)
-    erubis :'blog/index'
+module BlogController 
+  get %r{/blog/([\d]{4})?$} do |year|
+    @articles = Article.all_by_year(year)
+    unless output = cache.get("articles")
+      output = erubis(:'blog/index')
+      cache.set("articles#{year}",output)
+      output
+    else
+      output
+    end
   end
 
   get '/blog/list' do
@@ -17,7 +19,18 @@ module BlogController
   get '/blog/:day/:month/:year/:slug/' do
     article = Article.first(:create_date => (Time.local(params[:year],params[:month],params[:day],0,0)..Time.local(params[:year],params[:month],params[:day],23,59)), :slug => params[:slug])
     halt 404 unless article
-    erubis :'blog/show', :locals => {:article => article}
+    unless output = cache.get(article.url)
+      output = erubis(:'blog/show', :locals => {:article => article})
+      @cache.set(article.url,output)
+      output
+    else
+      output
+    end
+  end
+
+  post '/blog/preview' do
+    authorize
+    erubis :'blog/show', :layout => false, :locals => {:article => Article.new(params[:article])}
   end
 
   get '/blog/new' do
@@ -31,7 +44,7 @@ module BlogController
     if params[:article]
       params[:article][:tags] = params[:article][:tags].split(",").map(&:strip) if params[:article][:tags]
       @article = Article.new(params[:article])
-      @article.author = user
+      @article.author = current_user
       if @article.valid?
         @article.save
         redirect @article.url

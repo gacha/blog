@@ -1,7 +1,23 @@
+<script type="text/javascript">
+  function preview(){
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/blog/preview",
+      data		: $('#article-form').serializeArray(),
+      complete: function(xhr){
+        $.colorbox({html: xhr.responseText, width: '90%'})
+      }
+    })
+  }
+  $(function(){
+    $("#preview").click(function(){preview()})
+  })
+</script>
 <section>
-  <form action="<%= update_url(@article) %>" method="post">
+  <form id="article-form" action="<%= update_url(@article) %>" method="post">
     <% unless @article.errors.empty? %>
-    <h3>Kļūdas</h3>
+      <h3>Kļūdas</h3>
       <ul class="errors">
         <% @article.errors.each do |error| %>
           <li><%= error %></li>
@@ -13,14 +29,14 @@
       <input type="text" name="article[title]" id="article_title" value="<%= @article.title %>" size="50" />
     </p>
     <% if @article.saved? %>
-    <p>
-      <label for="article_slug">Slug</label><br />
-      <input type="text" name="article[slug]" id="article_slug" value="<%= @article.slug %>" size="50" />
-    </p>
+      <p>
+        <label for="article_slug">Slug</label><br />
+        <input type="text" name="article[slug]" id="article_slug" value="<%= @article.slug %>" size="50" />
+      </p>
     <% end %>
     <p>
       <label for="article_tags">Tagi</label><br />
-      <input type="text" name="article[tags]" id="article_tags" value="<%= @article.tags %>" size="50" />
+      <input type="text" name="article[tags]" id="article_tags" value="<%= @article.tags && @article.tags.join(", ") %>" size="50" />
     </p>
     <p>
       <label for="article_body">Saturs</label><br />
@@ -32,9 +48,9 @@
     </p>
     <p>
       <input type="submit" name="save" value="Saglabāt" />
-      <input type="button" name="save" value="Pirmsapskate" />
+      <input type="button" name="save" value="Pirmsapskate" id="preview" />
       <% if @article.saved? %>
-      <input type="button" name="destroy" value="Dzēst rakstu" onclick="window.location.href='/blog/<%= @article.id %>/destroy'"/>
+        <input type="button" name="destroy" value="Dzēst rakstu" onclick="window.location.href='/blog/<%= @article.id %>/destroy'"/>
       <% end %>
     </p>
   </form>

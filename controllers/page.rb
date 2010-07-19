@@ -1,12 +1,14 @@
-require 'controllers/auth.rb'
-
-module PageController
-  include Auth
-
+module PageController 
   get '/:slug/' do
     @page = Page.get(params[:slug])
     halt 404 unless @page
-    erubis :'page/show'
+    unless output = cache.get(params[:slug])
+      output = erubis(:'page/show')
+      @cache.set(params[:slug],output)
+      output
+    else
+      output
+    end
   end
 
   get '/:slug/edit' do

@@ -8,9 +8,10 @@ class Page
 	property :enable_comments, Boolean, :default => false
 
   before :valid?, :slugify
+  after :save, :clear_cache
   default_scope(:default).update(:order => [:modify_date.desc])
 
-  validates_is_unique :slug
+  validates_uniqueness_of :slug
 
   def url
     '/%s/' % self.slug
@@ -22,4 +23,8 @@ class Page
     self.slug = to_slug(self.title) unless self.slug
   end
 
+  def clear_cache
+    @cache ||= AppEngine::Memcache.new
+    @cache.delete(self.slug)
+  end
 end

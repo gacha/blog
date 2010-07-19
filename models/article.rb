@@ -12,12 +12,19 @@ class Article
   property :tags, List
   
   before :valid?, :slugify
+  after :save, :clear_cache
+
   default_scope(:default).update(:order => [:create_date.desc])
 
-  validates_is_unique :slug, :scope => :create_date
+  validates_uniqueness_of :slug, :scope => :create_date
 
   def url
     '/blog/%s/%s/' % [self.create_date.strftime("%d/%m/%Y"),self.slug]
+  end
+
+  def self.all_by_year year
+    year = year ? year : last = Article.last(:is_public => true) && last.create_date.year
+    year ? Article.all(:is_public => true, :create_date.gt => Time.local(year,1,1), :create_date.lt => Time.local(year,12,31)) : []
   end
 
   def self.all_by_tag name
@@ -30,4 +37,10 @@ class Article
     self.slug = to_slug(self.title) unless self.slug
   end
 
+  def clear_cache
+    @cache ||= AppEngine::Memcache.new
+    @cache.delete(self.url)
+    @cache.delete("articles#{self.create_date.year}")
+    @cache.delete("rss")
+  end
 end

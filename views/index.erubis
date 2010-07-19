@@ -1,13 +1,13 @@
 <script type="text/javascript">
   $(function(){
-    $("a[rel='flickr']").fancybox({titlePosition: 'inside'});
+    $("a[rel='prettyPhoto[flickr]']").colorbox();
   })
 </script>
 <div id="about">
   <p>
     <img src="/images/me_small.png" alt="Es Cēsu maratonā" id="me" />
     Šī ir Gata Tomsona personīgā tīmekļa vietne, kur ir atrodams šis/tas saistībā ar viņa darbu un atpūtu. Gatis ir 24 gadus jauns,
-    strādā par tīmekļa aplikāciju izstrādātāju un brīvajā laikā aizraujas ar <acronym title="Kalnu velosipēds">MTB</acronym> un labprāt piedalās
+    strādā par tīmekļa aplikāciju izstrādātāju un brīvajā laikā aizraujas ar <abbr title="Kalnu velosipēds">MTB</abbr> un labprāt piedalās
     arī citās sporta aktivitātēs.<br />
     <a href="/about/">Te, mazliet vairāk pats par sevi...</a>
   </p>
@@ -18,7 +18,7 @@
   <div id="flicker-photos">
     <% @flickr.each do |item| %>
       <figure>
-        <%= %^<a href="#{item[:big]}" rel="flickr" title="#{h item[:title]}"><img src="#{item[:thumb]}" alt=""></a>^ %>
+        <%= %^<a href="#{item[:big]}" rel="prettyPhoto[flickr]" title="#{h item[:title]}"><img src="#{item[:thumb]}" alt=""></a>^ %>
       </figure>
     <% end %>
   </div>
