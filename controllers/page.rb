@@ -1,8 +1,8 @@
 module PageController 
   get '/:slug/' do
-    @page = Page.get(params[:slug])
-    halt 404 unless @page
     unless output = cache.get(params[:slug])
+      @page = Page.get(params[:slug])
+      halt 404 unless @page
       output = erubis(:'page/show')
       @cache.set(params[:slug],output)
       output

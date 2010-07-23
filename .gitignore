@@ -1,4 +1,5 @@
 WEB-INF/
 .gems/
+.idea/
 nbproject/
 cache.bash/*

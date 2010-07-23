@@ -8,17 +8,17 @@ require 'hpricot'
 DataMapper.setup(:default, "appengine://auto")
 
 # load models
-Dir.glob("models/*.rb").each {|f| require(f) }
+Dir.glob("models/*.rb").each { |f| require(f) }
 
 # load libs
-Dir.glob("lib/*.rb").each {|f| require(f) }
+Dir.glob("lib/*.rb").each { |f| require(f) }
 include Auth
 
 # load helpers
-Dir.glob("helpers/*.rb").each {|f| require(f) }
+Dir.glob("helpers/*.rb").each { |f| require(f) }
 
 # load controllers
-Dir.glob("controllers/*.rb").each {|f| require(f) }
+Dir.glob("controllers/*.rb").each { |f| require(f) }
 
 require 'erubis'
 
@@ -42,34 +42,11 @@ get '/feeds/latest' do
   @articles = Article.all(:limit => 10, :is_public => true)
   unless output = cache.get("rss")
     output = builder(:rss)
-    cache.set("rss",output)
+    cache.set("rss", output)
     output
   else
     output
   end
-end
-
-get '/import/blog/' do
-  authorize
-  data = AppEngine::URLFetch.fetch "http://gacha.id.lv/blog/"
-  doc = Hpricot(data.body)
-  articles = doc.search("div .article")
-  articles.collect{|article| {:title => article.search(".article-title a").text, :url => article.search(".article-title a").attr(:href), :body => article.search(".article-body").inner_html,:tags => article.search(".article-header a").map(&:inner_html)}}.each do |item|
-    article = Article.new
-    article.title = item[:title]
-    article.body = item[:body]
-    article.tags = item[:tags]
-    item[:url] =~ /\/blog\/(\d+)\/(\d+)\/(\d+)\/.+\//
-    article.create_date = Time.local($3,$2,$1)
-    article.author = current_user
-    article.is_public = true
-    if article.valid?
-      article.save
-    else
-      puts article.errors.inspect
-    end
-  end
-  "Imported #{articles.size} articles"
 end
 
 not_found do

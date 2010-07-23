@@ -1,3 +1,6 @@
 <% @articles.each do |article| %>
   <%= erubis :"blog/show", :layout => false, :locals => {:article => article} %>
 <% end %>
+<p>
+    <%= articles_navigation(@year) %>
+</p>

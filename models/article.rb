@@ -23,14 +23,31 @@ class Article
   end
 
   def self.all_by_year year
-    year = year ? year : last = Article.last(:is_public => true) && last.create_date.year
-    year ? Article.all(:is_public => true, :create_date.gt => Time.local(year,1,1), :create_date.lt => Time.local(year,12,31)) : []
+    year = if year
+      year
+    else
+      last = Article.public.first
+      if last
+        last.create_date.year
+      else
+        nil
+      end
+    end
+    year ? Article.public(:create_date.gt => Time.local(year,1,1), :create_date.lt => Time.local(year,12,31)) : []
+  end
+
+  def self.count_by_year year
+    Article.public(:create_date.gt => Time.local(year,1,1), :create_date.lt => Time.local(year,12,31)).count  
   end
 
   def self.all_by_tag name
-    self.all(:is_public => true, :tags => name)
+    self.public(:tags => name)
   end
-  
+
+  def self.public options={}
+    all({:is_public => true}.merge(options))
+  end
+
   private
 
   def slugify(context = :default)
