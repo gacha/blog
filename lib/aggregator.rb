@@ -26,7 +26,7 @@ class Aggregator
   def load_tweets
     unless tweets = @cache.get(:tweets)
       begin
-        data = AppEngine::URLFetch.fetch "http://api.twitter.com/1/statuses/user_timeline.xml?screen_name=gacha&count=10"
+        data = AppEngine::URLFetch.fetch "http://www.ithouse.lv/proxy/twitter.php?screen_name=gacha&count=10"
         doc = Hpricot.XML(data.body)
         tweets = doc.search("//status").collect{|item| {:body => item.search("text").inner_html,:time => Time.parse(item.search("created_at").inner_html)}}
         @cache.set(:tweets,tweets) unless tweets.empty?

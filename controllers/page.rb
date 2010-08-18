@@ -55,4 +55,10 @@ module PageController
     @page.destroy!
     redirect '/'
   end
+  
+  post '/page/preview' do
+    authorize
+    @page = Page.new(params[:page])
+    erubis :'page/show', :layout => false
+  end
 end

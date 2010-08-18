@@ -6,7 +6,8 @@ class Page
 	property :modify_date, Time
 	property :is_public, Boolean, :default => false
 	property :enable_comments, Boolean, :default => false
-
+  property :render_as, String, :length => 10, :default => 'markdown'
+  
   before :valid?, :slugify
   after :save, :clear_cache
   default_scope(:default).update(:order => [:modify_date.desc])

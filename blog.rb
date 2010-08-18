@@ -25,6 +25,7 @@ require 'erubis'
 set :erubis, {:layout => :default}
 
 helpers do
+  include AppHelper
   include ArticleHelper
   include Rack::Utils
   alias_method :h, :escape_html
@@ -38,19 +39,8 @@ get '/' do
   erubis :index
 end
 
-get '/feeds/latest' do
-  @articles = Article.all(:limit => 10, :is_public => true)
-  unless output = cache.get("rss")
-    output = builder(:rss)
-    cache.set("rss", output)
-    output
-  else
-    output
-  end
-end
-
 not_found do
-  '404'
+  '<h1>404</h1>'
 end
 
 def cache

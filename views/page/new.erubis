@@ -1,5 +1,21 @@
+<script type="text/javascript">
+  function preview(){
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/page/preview",
+      data		: $('#page-form').serializeArray(),
+      complete: function(xhr){
+        $.colorbox({html: xhr.responseText, width: '90%'})
+      }
+    })
+  }
+  $(function(){
+    $("#preview").click(function(){preview()})
+  })
+</script>
 <section>
-  <form action="<%= @page.url %>update" method="post">
+  <form id="page-form" action="<%= @page.url %>update" method="post">
     <% unless @page.errors.empty? %>
     <h3>Kļūdas</h3>
       <ul class="errors">
@@ -27,10 +43,14 @@
     <p>
       <label>Ir publisks <input type="checkbox" name="page[is_public]" value="1" <%= @page.is_public? ? 'checked="checked"' : '' %> /></label>
       <label>Komentējams <input type="checkbox" name="page[enable_comments]" value="1" <%= @page.enable_comments? ? 'checked="checked"' : '' %> /></label>
+      <strong>Formatējums:</strong>
+        <label><small>Markdown</small><input type="radio" name="page[render_as]" value="markdown" <%= @page.render_as == 'markdown' ? 'checked="checked"' : '' %>/></label>
+        <label><small>HTML</small><input type="radio" name="page[render_as]" value="html" <%= @page.render_as == 'html' ? 'checked="checked"' : '' %>/></label>
+          
     </p>
     <p>
       <input type="submit" name="save" value="Saglabāt" />
-      <input type="button" name="save" value="Pirmsapskate" />
+      <input type="button" id="preview" name="save" value="Pirmsapskate" />
       <% if @page.saved? %>
       <input type="button" name="destroy" value="Dzēst lapu" onclick="window.location.href='<%= @page.url %>destroy'"/>
       <% end %>

@@ -43,9 +43,16 @@ blockquote {
   padding: 1em;
 }
 
+hr {
+    height: 1px;
+    border: none;
+    background-color: #C0BDB6;
+}
+
 /* Layout */
 
 body > header {
+  display: block;
   height: 135px;
   width: 100%;
   background: url(/images/menu.png) left bottom repeat-x;
@@ -61,6 +68,7 @@ body > header > a:hover {
 }
 
 body > footer {
+  display: block;
   font-size: 0.8em;
   border-top: 2px solid #E7E3D4;
   line-height: 20px;
@@ -71,27 +79,32 @@ body > footer {
 }
 
 nav {
-  position: relative;
-  top: -65px;
+  display: block;
+  position: absolute;
+  top: 77px;
   right: 50px;
 }
 nav ul {
   text-align: left;
   font: bold 11px verdana, arial, sans-serif;
   list-style-type: none;
-  padding: 3px 10px 3px 10px;
+  padding: 0;
+  margin: 0;
   float: right;
-  height: 30px;
 }
 nav ul li {
   display: inline;
 }
 nav ul li a {
-  padding: 3px 4px;
+  padding: 0 5px;
+  height: 22px;
+  line-height: 22px;
   border: 1px solid #CEC1A3;
   background-color: #F3EFE5;
   color: #620C0C !important;
-  margin-right: 0px;
+  margin-right: 5px;
+  display: block;
+  float: left;
   text-decoration: none;
   border-bottom: none;
 }
@@ -132,6 +145,9 @@ nav ul li.active a {
 label {
   font-weight: bold;
   line-height: 25px;
+}
+label small {
+    font-weight: normal;
 }
 input[type="text"], input[type="password"] {
   border: 1px solid #CCC;
@@ -182,8 +198,15 @@ table tr td {
   width: 65%;
 }
 #content section > aside {
+  display: block;
   float: right;
   width: 30%;
-  position: relative;
-  top: -50px;
+}
+
+/* comments */
+#disqus_thread {
+    width: 70%;
+}
+#dsq-content .dsq-comment-header {
+    background: #E4DDC7 none !important;
 }

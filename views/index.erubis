@@ -18,7 +18,7 @@
   <div id="flicker-photos">
     <% @flickr.each do |item| %>
       <figure>
-        <%= %^<a href="#{item[:big]}" rel="prettyPhoto[flickr]" title="#{h item[:title]}"><img src="#{item[:thumb]}" alt=""></a>^ %>
+        <%= %^<a href="#{item[:big]}" rel="prettyPhoto[flickr]"><img src="#{item[:thumb]}" alt=""></a>^ %>
       </figure>
     <% end %>
   </div>
