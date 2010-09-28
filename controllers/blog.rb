@@ -4,7 +4,7 @@ module BlogController
     unless output = cache.get("articles#{year}")
       @articles = Article.all_by_year(year)
       output = erubis(:'blog/index')
-      cache.set("articles#{year}", output)
+      #cache.set("articles#{year}", output)
       output
     else
       output
