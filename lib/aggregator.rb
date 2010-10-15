@@ -1,6 +1,9 @@
+require 'tzinfo'
+
 class Aggregator
   def initialize
     @cache = AppEngine::Memcache.new
+    @tz = TZInfo::Timezone.get('Europe/Riga')
   end
 
   def clear_cache
@@ -28,7 +31,7 @@ class Aggregator
       begin
         data = AppEngine::URLFetch.fetch "http://www.ithouse.lv/proxy/twitter.php?screen_name=gacha&count=10"
         doc = Hpricot.XML(data.body)
-        tweets = doc.search("//status").collect{|item| {:body => item.search("text").inner_html,:time => Time.parse(item.search("created_at").inner_html)}}
+        tweets = doc.search("//status").collect{|item| {:body => item.search("text").inner_html,:time => @tz.utc_to_local(Time.parse(item.search("created_at").inner_html).utc)}}
         @cache.set(:tweets,tweets) unless tweets.empty?
       rescue
        return []

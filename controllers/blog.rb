@@ -1,10 +1,10 @@
 module BlogController
-  get %r{/blog/([\d]{4})?$} do |year|
-    @year = year ? year : Date.today.year
+  get %r{/blog/(.*)} do |year|
+    @year = year =~ /^\d{4}$/ ? year : Date.today.year
     unless output = cache.get("articles#{year}")
       @articles = Article.all_by_year(year)
       output = erubis(:'blog/index')
-      #cache.set("articles#{year}", output)
+      cache.set("articles#{year}", output)
       output
     else
       output
