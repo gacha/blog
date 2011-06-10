@@ -1,0 +1,57 @@
+:javascript
+  function preview(){
+    $.ajax({
+      type    : "POST",
+      cache : false,
+      url   : "/page/preview",
+      data    : $('#page-form').serializeArray(),
+      complete: function(xhr){
+        $.colorbox({html: xhr.responseText, width: '90%'})
+      }
+    })
+  }
+  $(function(){
+    $("#preview").click(function(){preview()})
+  })
+%section
+  %form#page-form{:action => "#{@page.url}update", :method => "post"}
+    - unless @page.errors.empty?
+      %h3 Kļūdas
+      %ul.errors
+        - @page.errors.each do |error|
+          %li= error
+    %p
+      %label{:for => "page_title"} Lapas virsraksts
+      %br/
+      %input#page_title{:name => "page[title]", :size => "50", :type => "text", :value => @page.title}/
+    - if @page.saved?
+      %p
+        %label{:for => "page_slug"} Slug
+        %br/
+        %input#page_slug{:name => "page[slug]", :size => "50", :type => "text", :value => @page.slug}/
+    - elsif @page.slug
+      %input#page_slug{:name => "page[slug]", :type => "hidden", :value => @page.slug}/
+    %p
+      %label{:for => "page_body"} Saturs
+      %br/
+      %textarea#page_body{:cols => "80", :name => "page[body]", :rows => "15"}= @page.body
+    %p
+      %label
+        Ir publisks
+        %input{:type => "checkbox", :name => "page[is_public]", :value => 1, :checked => @page.is_public? ? 'checked' : nil}
+      %label
+        Komentējams 
+        %input{:type => "checkbox", :name => "page[enable_comments]", :value => 1, :checked => @page.enable_comments? ? 'checked' : nil}
+      %strong Formatējums:
+      %label
+        %small Markdown
+        %input{:type => "checkbox", :name => "page[render_as]", :value => "markdown", :checked => @page.render_as == 'markdown' ? 'checked' : nil}
+      %label
+        %small HTML
+        %input{:type => "checkbox", :name => "page[render_as]", :value => "html", :checked => @page.render_as == 'html' ? 'checked' : nil}
+    %p
+      %input{:name => "save", :type => "submit", :value => "Saglabāt"}/
+      %input#preview{:name => "save", :type => "button", :value => "Pirmsapskate"}/
+      - if @page.saved?
+        %input{:name => "destroy", :onclick => "window.location.href='#{@page.url}destroy'", :type => "button", :value => "Dzēst lapu"}/
+  = render :partial => :markdown_hints

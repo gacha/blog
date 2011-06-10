@@ -1,9 +1,11 @@
 require 'sinatra'
+require 'sinatra/content_for'
 require 'dm-core'
 require 'dm-validations'
 require 'appengine-apis/users'
 require 'appengine-apis/memcache'
 require 'hpricot'
+require 'haml'
 
 DataMapper.setup(:default, "appengine://auto")
 
@@ -20,15 +22,22 @@ Dir.glob("helpers/*.rb").each { |f| require(f) }
 # load controllers
 Dir.glob("controllers/*.rb").each { |f| require(f) }
 
-require 'erubis'
-
-set :erubis, {:layout => :default}
+set :haml, {:layout => :default, :format => :html5}
 
 helpers do
   include AppHelper
   include ArticleHelper
   include Rack::Utils
   alias_method :h, :escape_html
+
+  def render(*args)
+    if args.first.is_a?(Hash) && args.first.keys.include?(:partial)
+      return haml "_#{args.first[:partial]}".to_sym, :layout => false
+    else
+      super
+    end
+  end
+
 end
 
 get '/' do
@@ -36,7 +45,7 @@ get '/' do
   @flickr = aggregator.load_flickr_images
   @tweets = aggregator.load_tweets
   @delicious = aggregator.load_bookmarks
-  erubis :index
+  haml :index
 end
 
 not_found do
@@ -50,5 +59,4 @@ end
 # controllers
 include CronController
 include PageController
-include TagController
 include BlogController

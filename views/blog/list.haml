@@ -1,0 +1,14 @@
+%h1 Visi bloga raksti
+%p
+  %a{:href => "/blog/new"} Pievienot jaunu
+%table
+  - @articles.each do |article|
+    %tr
+      %td
+        %a{:href => article.url}= article.title
+      %td= article.create_date.strftime('%d.%m.%Y')
+      %td= article.is_public? ? 'Jā' : 'Nē'
+      %td
+        %a{:href => "/blog/#{article.id}/edit"} Labot
+        |
+        %a{:href => "/blog/#{article.id}/destroy"} Dzēst

@@ -1,17 +1,5 @@
 module BlogController
-  get %r{/blog/(.*)} do |year|
-    @year = year =~ /^\d{4}$/ ? year : Date.today.year
-    unless output = cache.get("articles#{year}")
-      @articles = Article.all_by_year(year)
-      output = erubis(:'blog/index')
-      cache.set("articles#{year}", output)
-      output
-    else
-      output
-    end
-  end
-
-  get %r{/feeds/latest(/)?$} do
+  get %r{/feeds/latest/?$} do
     @articles = Article.public(:limit => 10)
     unless output = cache.get("rss")
       output = builder(:rss)
@@ -31,14 +19,14 @@ module BlogController
   get '/blog/list' do
     authorize
     @articles = Article.all
-    erubis :'blog/list'
+    haml :'blog/list'
   end
 
   get '/blog/:day/:month/:year/:slug/' do
     article = Article.public.first(:create_date => (Time.local(params[:year], params[:month], params[:day], 0, 0)..Time.local(params[:year], params[:month], params[:day], 23, 59)), :slug => params[:slug])
     halt 404 unless article
     unless output = cache.get(article.url)
-      output = erubis(:'blog/show', :locals => {:article => article, :full => true})
+      output = haml(:'blog/show', :locals => {:article => article, :full => true})
       @cache.set(article.url, output)
       output
     else
@@ -48,13 +36,13 @@ module BlogController
 
   post '/blog/preview' do
     authorize
-    erubis :'blog/show', :layout => false, :locals => {:article => Article.new(params[:article])}
+    haml :'blog/show', :layout => false, :locals => {:article => Article.new(params[:article])}
   end
 
   get '/blog/new' do
     authorize
     @article = Article.new(:is_public => true, :enable_comments => true)
-    erubis :'blog/new'
+    haml :'blog/new'
   end
 
   post '/blog/create' do
@@ -67,7 +55,7 @@ module BlogController
         @article.save
         redirect @article.url
       else
-        erubis :'blog/new'
+        haml :'blog/new'
       end
     end
   end
@@ -76,7 +64,7 @@ module BlogController
     authorize
     @article = Article.get(params[:id])
     halt 404 unless @article
-    erubis :'blog/new'
+    haml :'blog/new'
   end
 
   post '/blog/:id/update' do
@@ -91,7 +79,7 @@ module BlogController
     if @article.update(params[:article])
       redirect @article.url
     else
-      erubis :'blog/new'
+      haml :'blog/new'
     end
   end
 
@@ -99,7 +87,7 @@ module BlogController
     authorize
     @article = Article.get(params[:id])
     halt 404 unless @article
-    erubis :'blog/destroy'
+    haml :'blog/destroy'
   end
 
   post '/blog/:id/destroy' do
@@ -108,5 +96,23 @@ module BlogController
     halt 404 unless @article
     @article.destroy!
     redirect '/blog/list'
+  end
+
+  get '/blog/tag/:name/?' do
+    @articles = Article.all_by_tag params[:name]
+    halt 404 if @articles.empty?
+    haml :'tag/list'
+  end
+
+  get %r{/blog/?(\d{4})?/?} do |year|
+    @year = !year.to_s.strip == '' ? year : Date.today.year
+    unless output = cache.get("articles#{@year}")
+      @articles = Article.all_by_year(@year)
+      output = haml(:'blog/index')
+      cache.set("articles#{@year}", output)
+      output
+    else
+      output
+    end
   end
 end

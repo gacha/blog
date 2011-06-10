@@ -1,0 +1,57 @@
+:javascript
+  function preview(){
+    $.ajax({
+      type    : "POST",
+      cache : false,
+      url   : "/blog/preview",
+      data    : $('#article-form').serializeArray(),
+      complete: function(xhr){
+        $.colorbox({html: xhr.responseText, width: '90%'})
+      }
+    })
+  }
+  $(function(){
+    $("#preview").click(function(){preview()})
+  })
+%section
+  %form#article-form{:action => update_url(@article), :method => "post"}
+    - unless @article.errors.empty?
+      %h3 Kļūdas
+      %ul.errors
+        - @article.errors.each do |error|
+          %li= error
+    %p
+      %label{:for => "article_title"} Raksta virsraksts
+      %br/
+      %input#article_title{:name => "article[title]", :size => "50", :type => "text", :value => @article.title}/
+    - if @article.saved?
+      %p
+        %label{:for => "article_slug"} Slug
+        %br/
+        %input#article_slug{:name => "article[slug]", :size => "50", :type => "text", :value => @article.slug}/
+    %p
+      %label{:for => "article_tags"} Tagi
+      %br/
+      %input#article_tags{:name => "article[tags]", :size => "50", :type => "text", :value => @article.tags && @article.tags.join(", ")}/
+    %p
+      %label{:for => "article_body"} Saturs
+      %br/
+      %textarea#article_body{:cols => "80", :name => "article[body]", :rows => "15"}= @article.body
+    %p
+      %label
+        Ir publisks <input type="checkbox" name="article[is_public]" value="1" #{@article.is_public? ? 'checked="checked"' : ''} />
+      %label
+        Komentējams <input type="checkbox" name="article[enable_comments]" value="1" #{@article.enable_comments? ? 'checked="checked"' : ''} />
+      %strong Formatējums:
+      %label
+        %small> Markdown
+        <input type="radio" name="article[render_as]" value="markdown" #{@article.render_as == 'markdown' ? 'checked="checked"' : ''}/>
+      %label
+        %small> HTML
+        <input type="radio" name="article[render_as]" value="html" #{@article.render_as == 'html' ? 'checked="checked"' : ''}/>
+    %p
+      %input{:name => "save", :type => "submit", :value => "Saglabāt"}/
+      %input#preview{:name => "save", :type => "button", :value => "Pirmsapskate"}/
+      - if @article.saved?
+        %input{:name => "destroy", :onclick => "window.location.href='/blog/#{@article.id}/destroy'", :type => "button", :value => "Dzēst rakstu"}/
+  = render :partial => :markdown_hints

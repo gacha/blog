@@ -1,0 +1,46 @@
+:javascript
+  $(function(){
+    $("a[rel='prettyPhoto[flickr]']").colorbox();
+  })
+  $(document).bind('cbox_complete', function(){
+    $("#cboxTitle").hide(); 
+    $("<p>"+$("#cboxTitle").html()+"</p>").css({color: $("#cboxTitle").css('color')}).insertBefore(".cboxPhoto"); 
+    $.fn.colorbox.resize(); 
+  });
+#about
+  %p
+    %img#me{:alt => "Es Cēsu maratonā", :src => "/images/me_small.png"}/
+    Šī ir Gata Tomsona personīgā tīmekļa vietne, kur ir atrodams šis/tas saistībā ar viņa darbu un atpūtu. Gatis ir 24 gadus jauns,
+    strādā par tīmekļa aplikāciju izstrādātāju un brīvajā laikā aizraujas ar
+    %abbr{:title => "Kalnu velosipēds"} MTB
+    un labprāt piedalās
+    arī citās sporta aktivitātēs.
+    %br/
+    %a{:href => "/about/"} Te, mazliet vairāk pats par sevi...
+%br.clear/
+%section.column
+  %h2
+    Daži attēli no
+    %a{:href => "http://www.flickr.com/photos/gacha_lv/"} flickr
+  #flicker-photos
+    - @flickr.each do |item|
+      %figure
+        = %^<a href="#{item[:big]}" rel="prettyPhoto[flickr]" title="#{item[:title]}"><img src="#{item[:thumb]}" alt=""></a>^
+%section.column
+  %h2
+    Mikrobloga ieraksti no
+    %a{:href => "http://twitter.com/gacha"} twitter
+  - @tweets.each do |tweet|
+    %p
+      %span.date= tweet[:time].strftime("%d.%m.%Y@%H:%I")
+      %br
+        = auto_link_urls(tweet[:body],:target => "_blank") {|t| truncate(t)}
+%section.column
+  %h2
+    Grāmatzīmes no
+    %a{:href => "http://delicious.com/gacha_lv"} del.icio.us
+  #del-icio-us
+    - @delicious.each do |item|
+      %p
+        %a{:href => item[:link], :target => "_blank"}= item[:title]
+%br.clear/

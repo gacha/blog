@@ -1,0 +1,56 @@
+GIT
+  remote: https://github.com/toolmantim/sinatra-content-for.git
+  revision: c713447686dc0f29d31eb2bc248701f33626cfef
+  specs:
+    sinatra-content-for (0.2.1)
+      sinatra
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.4)
+    appengine-apis (0.0.23)
+      appengine-rack
+    appengine-rack (0.0.12)
+      jruby-jars (>= 1.5.1)
+      jruby-rack (>= 1.0.1)
+      rack
+    builder (3.0.0)
+    dm-appengine (0.1.3)
+      appengine-apis (~> 0.0.17)
+      dm-core (~> 1.0)
+      lexidecimal (~> 0.0)
+    dm-core (1.1.0)
+      addressable (~> 2.2.4)
+    dm-validations (1.1.0)
+      dm-core (~> 1.1.0)
+    erubis (2.7.0)
+    hpricot (0.8.4)
+    jruby-jars (1.6.0)
+    jruby-rack (1.0.6.rc1)
+    lexidecimal (0.0.1)
+    maruku (0.6.0)
+      syntax (>= 1.0.0)
+    rack (1.2.2)
+    sinatra (1.2.1)
+      rack (~> 1.1)
+      tilt (< 2.0, >= 1.2.2)
+    syntax (1.0.0)
+    tilt (1.2.2)
+    tzinfo (0.3.26)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  appengine-rack
+  builder
+  dm-appengine
+  dm-validations
+  erubis
+  hpricot
+  jruby-rack (= 1.0.6.rc1)
+  maruku
+  sinatra
+  sinatra-content-for!
+  tzinfo

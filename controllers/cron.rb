@@ -1,7 +1,7 @@
 module CronController
   include Auth
   
-  get '/cron/:name' do
+  get '/cron/:name/?' do
     #authorize
     Cron::run params[:name]
     "Done"

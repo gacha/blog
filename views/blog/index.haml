@@ -1,0 +1,5 @@
+- @articles.each do |article|
+  = haml :"blog/show", :layout => false, :locals => {:article => article}
+%p
+  = articles_navigation(@year)
+= render :partial => :disqus_js

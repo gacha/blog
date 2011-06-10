@@ -8,8 +8,16 @@ body {
 
 /* Fonts */
 
-h1,h2,h3 { margin-top:.8em; font-family: "Trebuchet MS","Times New Roman",serif; font-weight:normal; color: #450D0D;}
-h1 { font-size:218%; margin-top:.2em; margin-bottom:.3em; line-height:1.1em; color: #BF3616; font-weight: bold;}
+h1,h2,h3 { 
+  margin-top:.8em; 
+  font-family: Helvetica, Arial, sans-serif; 
+  font-weight: normal; 
+  color: #222;
+  -moz-text-shadow: #ccc 1px 1px 1px;
+  -webkit-text-shadow: #ccc 1px 1px 1px;
+  text-shadow: #ccc 1px 1px 1px;
+}
+h1 { font-size:218%; margin-top:.2em; margin-bottom:.3em; line-height:1.1em; color: #222;}
 h2 { font-size:150%; margin-top:1em; margin-bottom:.2em; line-height:1.2em; }
 h3 { font-size:125%; font-weight:bold; margin-bottom:.2em; }
 h4 { font-size:100%; font-weight:bold; margin-bottom:-3px; margin-top:1.2em; text-transform:uppercase; letter-spacing:1px; }
@@ -49,6 +57,10 @@ hr {
     background-color: #C0BDB6;
 }
 
+figure {
+  margin: 0;
+  display: inline;
+}
 /* Layout */
 
 body > header {
@@ -81,12 +93,12 @@ body > footer {
 nav {
   display: block;
   position: absolute;
-  top: 77px;
+  top: 76px;
   right: 50px;
 }
 nav ul {
   text-align: left;
-  font: bold 11px verdana, arial, sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -96,9 +108,9 @@ nav ul li {
   display: inline;
 }
 nav ul li a {
-  padding: 0 5px;
-  height: 22px;
-  line-height: 22px;
+  padding: 0 10px;
+  height: 23px;
+  line-height: 23px;
   border: 1px solid #CEC1A3;
   background-color: #F3EFE5;
   color: #620C0C !important;
@@ -117,11 +129,11 @@ nav ul li.active a {
 }
 /* article */
 .article-title a {
-    color: #BF3616;
+    color: #222;
 }
 
 .article-header {
-    font-weight: bold;
+    text-shadow: #CCC 1px 1px 1px;
     font-size: small;
 }
 
@@ -130,7 +142,10 @@ nav ul li.active a {
     margin: 0 0 2em 0;
 
 }
-
+.article-body {
+  margin-top: 15px;
+  font-family: "Droid Sans", Sans, Arial, sans-serif;
+}
 .article-body img {
     margin: 1em;
     border: 1px solid black;
@@ -142,6 +157,16 @@ nav ul li.active a {
 }
 
 /* Other */
+#cboxLoadedContent p {
+  text-align: center;
+  line-height: 1.5em;
+  margin: 0 0 0.5em 0;
+}
+#cboxLoadedContent img {
+  -webkit-box-shadow: #ccc 5px 3px 3px;
+  -moz-box-shadow: #ccc 5px 3px 3px;
+  box-shadow: #ccc 5px 3px 3px;
+}
 label {
   font-weight: bold;
   line-height: 25px;

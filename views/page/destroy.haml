@@ -1,0 +1,5 @@
+%form{:action => "#{@page.url}destroy", :method => "post"}
+  %p Vai tiešām dzēst šo lapu?
+  %p
+    %input{:name => "back", :onclick => "window.history.back(1)", :type => "button", :value => "Atpakaļ"}/
+    %input{:name => "destroy", :type => "submit", :value => "Jā dzēst"}/
