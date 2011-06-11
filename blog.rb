@@ -6,6 +6,7 @@ require 'appengine-apis/users'
 require 'appengine-apis/memcache'
 require 'hpricot'
 require 'haml'
+require 'date'
 
 DataMapper.setup(:default, "appengine://auto")
 
@@ -38,6 +39,10 @@ helpers do
     end
   end
 
+  def age birthday
+    now = Date.today
+    now.year - birthday.year - (Date.new(now.year,birthday.month,birthday.day) > now ? 1 : 0)
+  end
 end
 
 get '/' do

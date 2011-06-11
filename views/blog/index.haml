@@ -2,4 +2,4 @@
   = haml :"blog/show", :layout => false, :locals => {:article => article}
 %p
   = articles_navigation(@year)
-= render :partial => :disqus_js
+= render :partial => :disqus_count_js

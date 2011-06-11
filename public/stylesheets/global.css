@@ -55,6 +55,7 @@ hr {
     height: 1px;
     border: none;
     background-color: #C0BDB6;
+    width: 100%;
 }
 
 figure {
@@ -157,6 +158,10 @@ nav ul li.active a {
 }
 
 /* Other */
+.page {
+  overflow: auto;
+  margin-bottom: 15px;
+}
 #cboxLoadedContent p {
   text-align: center;
   line-height: 1.5em;

@@ -99,15 +99,15 @@ module BlogController
   end
 
   get '/blog/tag/:name/?' do
-    @articles = Article.all_by_tag params[:name]
+    @articles = Article.public.all_by_tag params[:name]
     halt 404 if @articles.empty?
     haml :'tag/list'
   end
 
-  get %r{/blog/?(\d{4})?/?} do |year|
-    @year = !year.to_s.strip == '' ? year : Date.today.year
+  get %r{/blog/?(\d{4})?/?$} do |year|
+    @year = year.blank? ? Date.today.year : year 
     unless output = cache.get("articles#{@year}")
-      @articles = Article.all_by_year(@year)
+      @articles = Article.public.all_by_year(@year)
       output = haml(:'blog/index')
       cache.set("articles#{@year}", output)
       output
