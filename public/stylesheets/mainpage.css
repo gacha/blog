@@ -25,9 +25,17 @@
 
 #flicker-photos img {
 	border: 1px solid #E0DCD1;
+  -moz-box-shadow: 2px 1px 10px #999;
+  -webkit-box-shadow: 2px 1px 10px #999;
+  box-shadow: 2px 1px 10px #999;
 }
 #flicker-photos a:hover {
-	text-decoration: none;	
+	text-decoration: none;
+}
+#flicker-photos a:hover img {
+  -moz-box-shadow: 2px 1px 10px #111;
+  -webkit-box-shadow: 2px 1px 10px #111;
+  box-shadow: 2px 1px 10px #111;
 }
 dd {
 	color:#A81616;

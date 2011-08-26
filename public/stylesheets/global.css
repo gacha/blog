@@ -1,8 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10pt;
+  font: 14px/1.4 "Lucida Grande", Helvetica, sans-serif;
   background-color: #f3efe5;
 }
 
@@ -75,7 +74,22 @@ body > header {
 body > header > a:hover {
   background-color: transparent;
 }
-
+body header h1 { 
+  font-family: 'Comfortaa', cursive; 
+  color: #F4D147;
+  font-size: 40px;
+  text-shadow: none;
+  padding: 10px 0 0 0;
+  margin: 0 0 0 40px;
+}
+body header h2 { 
+  font-family: 'Jura', sans-serif; 
+  font-size: 25px;
+  color: #ccc;
+  text-shadow: none;
+  margin: 0 0 0 40px;
+  padding: 0;
+}
 #content {
   margin: 1em 1em 1em 5em;
 }
